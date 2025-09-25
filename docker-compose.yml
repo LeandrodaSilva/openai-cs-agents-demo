@@ -4,7 +4,7 @@ services:
     build: ./python-backend
     container_name: backend-hcg8ww88gg84o04kc4cokc4o-235133776208
     ports:
-      - "8888:8888"
+      - "7775:7775"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     volumes:

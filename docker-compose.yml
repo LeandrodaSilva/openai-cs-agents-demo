@@ -13,10 +13,10 @@ services:
   ui:
     build: ./ui
     ports:
-      - "4444:4444"
+      - "7777:7777"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - PORT=4444
+      - PORT=7777
     depends_on:
       - backend
     networks:

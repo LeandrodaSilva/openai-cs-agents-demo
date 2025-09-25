@@ -1,8 +1,8 @@
 version: '3.8'
 services:
-  backend:
+  backend-hcg8ww88gg84o04kc4cokc4o-235133776208:
     build: ./python-backend
-    container_name: backend
+    container_name: backend-hcg8ww88gg84o04kc4cokc4o-235133776208
     ports:
       - "8888:8888"
     environment:

@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: "/chat",
-        destination: "http://backend:8888/chat",
+        destination: "http://backend-hcg8ww88gg84o04kc4cokc4o-235133776208:8888/chat",
       },
     ];
   },

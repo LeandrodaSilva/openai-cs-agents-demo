@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: "/chat",
-        destination: "http://fwggwo8g000ggkwsc0s44ooo.144.22.171.89.sslip.io/chat",
+        destination: "http://backend:8888/chat",
       },
     ];
   },

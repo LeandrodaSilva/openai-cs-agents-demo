@@ -345,3 +345,7 @@ async def chat_endpoint(req: ChatRequest):
         agents=_build_agents_list(),
         guardrails=final_guardrails,
     )
+
+@app.get("/hello")
+async def hello():
+    return {"message": "Hello, world!"}

@@ -8,6 +8,8 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     volumes:
       - ./python-backend:/app
+    networks:
+      - localnet
   ui:
     build: ./ui
     ports:
@@ -17,3 +19,9 @@ services:
       - PORT=3333
     depends_on:
       - backend
+    networks:
+      - localnet
+
+networks:
+  localnet:
+    driver: bridge

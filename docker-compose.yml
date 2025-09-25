@@ -3,7 +3,7 @@ services:
   backend:
     build: ./python-backend
     ports:
-      - "8000:8000"
+      - "8888:8000"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     volumes:
@@ -11,7 +11,7 @@ services:
   ui:
     build: ./ui
     ports:
-      - "3000:3000"
+      - "3333:3000"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     depends_on:

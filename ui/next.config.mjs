@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: "/chat",
-        destination: "http://backend:8000/chat",
+        destination: "http://backend:8888/chat",
       },
     ];
   },

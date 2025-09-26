@@ -60,7 +60,7 @@ async def faq_lookup_tool(question: str) -> str:
             "Exit rows are rows 4 and 16. "
             "Rows 5-8 are Economy Plus, with extra legroom."
         )
-    elif "wifi" in q:
+    elif "wi-fi" in q:
         return "We have free wifi on the plane, join Airline-Wifi"
     return "I'm sorry, I don't know the answer to that question."
 
@@ -105,6 +105,22 @@ async def display_seat_map(
     """Trigger the UI to show an interactive seat map to the customer."""
     # The returned string will be interpreted by the UI to open the seat selector.
     return "DISPLAY_SEAT_MAP"
+
+@function_tool(
+    name_override="translate_message_to_en_tool",
+    description_override="Translate a message to English."
+)
+async def translate_message_to_en_tool(query: str) -> str:
+    """Translate a message to English. using LLM."""
+    openai = Agent(
+        name="Translation Helper",
+        model="gpt-4.1-mini",
+        instructions="Translate the following message to English: {input}",
+        output_type=str,
+    )
+    result = await Runner.run(openai, query)
+    return result.final_output_as(str)
+
 
 # =========================
 # HOOKS
@@ -288,7 +304,7 @@ faq_agent = Agent[AirlineAgentContext](
     1. Identify the last question asked by the customer.
     2. Use the faq lookup tool to get the answer. Do not rely on your own knowledge.
     3. Respond to the customer with the answer""",
-    tools=[faq_lookup_tool],
+    tools=[translate_message_to_en_tool, faq_lookup_tool],
     input_guardrails=[relevance_guardrail, jailbreak_guardrail],
 )
 
@@ -299,6 +315,7 @@ triage_agent = Agent[AirlineAgentContext](
     instructions=(
         f"{RECOMMENDED_PROMPT_PREFIX} "
         "You are a helpful triaging agent. You can use your tools to delegate questions to other appropriate agents."
+        "Always translate non-English messages to English first using the translate_message_to_en_tool."
     ),
     handoffs=[
         flight_status_agent,
@@ -307,6 +324,7 @@ triage_agent = Agent[AirlineAgentContext](
         handoff(agent=seat_booking_agent, on_handoff=on_seat_booking_handoff),
     ],
     input_guardrails=[relevance_guardrail, jailbreak_guardrail],
+    tools=[translate_message_to_en_tool],
 )
 
 # Set up handoff relationships

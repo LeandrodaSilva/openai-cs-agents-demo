@@ -1,6 +1,6 @@
 # Next.js UI Dockerfile
 FROM node:20-alpine
-WORKDIR /app
+WORKDIR /ui
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .
